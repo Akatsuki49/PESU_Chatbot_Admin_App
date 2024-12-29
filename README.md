@@ -39,6 +39,38 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## User Authentication
+
+This project includes a basic user login and signup template.
+
+### `npm install`
+
+Install the necessary dependencies for the authentication features.
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+### Login Credentials
+
+Use the following credentials to log in:
+- **Email:** user@example.com
+- **Password:** password
+
+## Question and Answer Submission
+
+### Adding a Question
+
+1. Log in using the credentials provided above.
+2. Enter your question in the "Question" textbox and click "Submit".
+3. If the question does not already exist in the database, you will be prompted to add an answer.
+
+### Adding an Answer
+
+1. Once the question is accepted, the "Answer" textbox will appear.
+2. Enter your answer in the "Answer" textbox and click "Submit Answer".
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).

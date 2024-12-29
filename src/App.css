@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.Login, .Signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.Login input, .Signup input {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.Login button, .Signup button {
+  margin: 10px;
+  padding: 10px;
+  width: 220px;
+  background-color: #61dafb;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.Login button:hover, .Signup button:hover {
+  background-color: #21a1f1;
+}
