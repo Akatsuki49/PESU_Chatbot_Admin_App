@@ -1,92 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './styles/AddQA_Screen.css';
+import { useAddSingleQA } from '../hooks/useAddSingleQA';
+import { useAddFile } from '../hooks/useAddFile';
 
 const AddQA_Screen = () => {
-  const [QaForm, setQaForm] = useState({
-    question: '',
-    answer: '',
-  });
+  const { QaForm, handleSingleQASubmit, handleChange } = useAddSingleQA();
+  const { file, handleFileChange, handleFileSubmit } = useAddFile();
 
-  const [showAnswerInput, setShowAnswerInput] = useState(false);
-
-  const handleQuestionSubmit = async (e) => {
-    e.preventDefault();
-    if (!QaForm.question.trim()) {
-      console.error('Question cannot be empty');
-      return;
-    }
-    try {
-      const response = await axios.post('http://localhost:5000/api/question', {
-        question: QaForm.question,
-      });
-      if (response.status === 200) {
-        console.log('Question sent to server successfully:', response.data);
-        const { message } = response.data;
-        if (
-          message === "Such Question doesn't exist. You can add your answer."
-        ) {
-          setShowAnswerInput(true);
-        } else if (
-          message === 'A similar question already exists in the dataset.'
-        ) {
-          setShowAnswerInput(false);
-        } else {
-          setShowAnswerInput(false);
-        }
-      } else {
-        console.log(
-          'Unsuccessful response from server:',
-          response.status,
-          response.data
-        );
-      }
-    } catch (error) {
-      console.error('Error sending question to server:', error);
-    } finally {
-    }
-  };
-
-  const handleAnswerSubmit = async (e) => {
-    e.preventDefault();
-    if (!QaForm.answer.trim()) {
-      console.error('Answer cannot be empty');
-      return;
-    }
-    try {
-      const response = await axios.post(
-        'http://localhost:5000/api/add_question_answer',
-        {
-          question: QaForm.question,
-          answer: QaForm.answer,
-        }
-      );
-      if (response.status === 200) {
-        console.log('Answer sent to server successfully:', response.data);
-        setShowAnswerInput(false);
-      } else {
-        console.log(
-          'Unsuccessful response from server:',
-          response.status,
-          response.data
-        );
-      }
-    } catch (error) {
-      console.error('Error sending answer to server:', error);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setQaForm((prevQaForm) => ({
-      ...prevQaForm,
-      [name]: value,
-    }));
-  };
   return (
     <div className="QuestionFormDiv">
       <h3>Add a Question</h3>
-      <form onSubmit={handleQuestionSubmit}>
+      <form onSubmit={handleSingleQASubmit}>
         <label htmlFor="question">Question:</label>
         <textarea
           type="text"
@@ -105,12 +30,13 @@ const AddQA_Screen = () => {
           value={QaForm.answer}
           onChange={handleChange}
         />
-        <button
-          type="submit"
-          style={{ pointerEvents: showAnswerInput ? 'none' : 'auto' }}
-        >
-          Submit
-        </button>
+        <button type="submit">Submit</button>
+      </form>
+
+      <form onSubmit={handleFileSubmit}>
+        <label htmlFor="file">Upload File:</label>
+        <input type="file" id="file" name="file" onChange={handleFileChange} />
+        <button type="submit">Upload</button>
       </form>
     </div>
   );
