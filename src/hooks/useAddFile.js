@@ -23,10 +23,6 @@ export const useAddFile = () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    console.log('Uploading file:');
-    console.log(file);
-    console.log(file.type);
-
     // try {
     //   const response = await axios.post('/api/upload', formData, {
     //     headers: {

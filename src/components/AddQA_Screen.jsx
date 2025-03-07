@@ -30,7 +30,7 @@ const AddQA_Screen = () => {
           value={QaForm.answer}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Submit Single QA</button>
       </form>
 
       <form onSubmit={handleFileSubmit}>
