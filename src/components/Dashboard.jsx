@@ -1,10 +1,13 @@
 import React, { useEffect, useId, useState } from 'react';
 import mockData from '../MockData.json';
 import Card from './Card';
+import AddQA_Screen from './AddQA_Screen';
+import './styles/Dashboard.css';
 
 const Dashboard = () => {
   // update, delete operations for each card retured from BE
   const [Cards, setCards] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const deleteCard = (id) => {
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
@@ -38,19 +41,28 @@ const Dashboard = () => {
     }
   };
   return (
-    <div>
-      <h1>Dashboard</h1>
-      {Cards.map((card) => {
-        return (
-          <Card
-            key={card.id}
-            card={card}
-            deleteCard={deleteCard}
-            updateCard={updateCard}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div className="Dashboard">
+        <h1>Dashboard</h1>
+        {Cards.map((card) => {
+          return (
+            <Card
+              key={card.id}
+              card={card}
+              deleteCard={deleteCard}
+              updateCard={updateCard}
+            />
+          );
+        })}
+        <button onClick={() => setIsModalOpen(true)} id="addBtn">
+          +
+        </button>
+      </div>
+      <AddQA_Screen
+        isModalOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+      />
+    </>
   );
 };
 
