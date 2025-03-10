@@ -6,7 +6,6 @@ import { useAddFile } from '../hooks/useAddFile';
 const AddQA_Screen = ({ isModalOpen, closeModal }) => {
   const { QaForm, handleSingleQASubmit, handleChange } = useAddSingleQA();
   const { file, handleFileChange, handleFileSubmit } = useAddFile();
-  // const [isSingleQA, setIsSingleQA] = useState(null);
   const [isSingleQA, setIsSingleQA] = useState(true);
 
   const dialogRef = useRef(null);
@@ -61,28 +60,6 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
       </form>
     );
   };
-  // const selectOptionForm = () => {
-  //   console.log('selectOptionForm rendered');
-  //   const handleOptionSelect = (e) => {
-  //     e.preventDefault(); // Prevent form submission and page refresh
-  //     const selectedOption = document.getElementById('option').value;
-  //     if (selectedOption === 'single') {
-  //       setIsSingleQA(true);
-  //     } else if (selectedOption === 'file') {
-  //       setIsSingleQA(false);
-  //     }
-  //   };
-  //   return (
-  //     <form onSubmit={handleOptionSelect}>
-  //       <label htmlFor="option">Select Option:</label>
-  //       <select id="option" name="option">
-  //         <option value="single">Single QA</option>
-  //         <option value="file">File QA</option>
-  //       </select>
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //   );
-  // };
 
   return (
     <dialog ref={dialogRef} open={isModalOpen} onCancel={closeModal}>
@@ -95,14 +72,6 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
         </div>
         {isSingleQA ? singleQA_Form() : fileQA_Form()}
       </div>
-      {/* {isSingleQA === null || isSingleQA === undefined ? (
-        selectOptionForm()
-      ) : (
-        <div className="QuestionFormDiv" ref={wrapperRef}>
-          <h3>Add a Question</h3>
-          {isSingleQA ? singleQA_Form() : fileQA_Form()}
-        </div>
-      )} */}
     </dialog>
   );
 };
