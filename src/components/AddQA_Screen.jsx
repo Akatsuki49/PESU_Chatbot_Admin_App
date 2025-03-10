@@ -27,7 +27,7 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
 
   const singleQA_Form = () => {
     return (
-      <form onSubmit={handleSingleQASubmit}>
+      <form onSubmit={handleSingleQASubmit} className="form singleQA">
         <label htmlFor="question">Question:</label>
         <textarea
           type="text"
@@ -53,7 +53,7 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
 
   const fileQA_Form = () => {
     return (
-      <form onSubmit={handleFileSubmit}>
+      <form onSubmit={handleFileSubmit} className="form fileQA">
         <label htmlFor="file">Upload File:</label>
         <input type="file" id="file" name="file" onChange={handleFileChange} />
         <button type="submit">Submit File QA</button>
@@ -65,6 +65,7 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
     <dialog ref={dialogRef} open={isModalOpen} onCancel={closeModal}>
       <div className="QuestionFormDiv" ref={wrapperRef}>
         <div className="header">
+          <button onClick={closeModal}>X</button>
           <h3>Add Question(s)</h3>
           <button onClick={() => setIsSingleQA(!isSingleQA)}>
             {isSingleQA ? 'File QA' : 'Single QA'}
