@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles/AddQA_Screen.css';
 import { useAddSingleQA } from '../hooks/useAddSingleQA';
 import { useAddFile } from '../hooks/useAddFile';
 
-const AddQA_Screen = () => {
+const AddQA_Screen = ({ isModalOpen, closeModal }) => {
   const { QaForm, handleSingleQASubmit, handleChange } = useAddSingleQA();
   const { file, handleFileChange, handleFileSubmit } = useAddFile();
+  const [isSingleQA, setIsSingleQA] = useState(true);
 
-  return (
-    <div className="QuestionFormDiv">
-      <h3>Add a Question</h3>
-      <form onSubmit={handleSingleQASubmit}>
+  const dialogRef = useRef(null);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+
+  const singleQA_Form = () => {
+    return (
+      <form onSubmit={handleSingleQASubmit} className="form singleQA">
         <label htmlFor="question">Question:</label>
         <textarea
           type="text"
@@ -32,13 +48,32 @@ const AddQA_Screen = () => {
         />
         <button type="submit">Submit Single QA</button>
       </form>
+    );
+  };
 
-      <form onSubmit={handleFileSubmit}>
+  const fileQA_Form = () => {
+    return (
+      <form onSubmit={handleFileSubmit} className="form fileQA">
         <label htmlFor="file">Upload File:</label>
         <input type="file" id="file" name="file" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
+        <button type="submit">Submit File QA</button>
       </form>
-    </div>
+    );
+  };
+
+  return (
+    <dialog ref={dialogRef} open={isModalOpen} onCancel={closeModal}>
+      <div className="QuestionFormDiv" ref={wrapperRef}>
+        <div className="header">
+          <button onClick={closeModal}>X</button>
+          <h3>Add Question(s)</h3>
+          <button onClick={() => setIsSingleQA(!isSingleQA)}>
+            {isSingleQA ? 'File QA' : 'Single QA'}
+          </button>
+        </div>
+        {isSingleQA ? singleQA_Form() : fileQA_Form()}
+      </div>
+    </dialog>
   );
 };
 
