@@ -1,13 +1,15 @@
 import React, { useEffect, useId, useState } from 'react';
-import mockData from '../MockData.json';
+import mockData from '../MockData/QACards.json';
 import Card from './Card';
 import AddQA_Screen from './AddQA_Screen';
 import './styles/Dashboard.css';
+import ReviewModal from './ReviewModal';
 
 const Dashboard = () => {
   // update, delete operations for each card retured from BE
   const [Cards, setCards] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddBtnModalOpen, setIsAddBtnModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   const deleteCard = (id) => {
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
@@ -54,13 +56,20 @@ const Dashboard = () => {
             />
           );
         })}
-        <button onClick={() => setIsModalOpen(true)} id="addBtn">
+        <button onClick={() => setIsAddBtnModalOpen(true)} id="addBtn">
           +
+        </button>
+        <button id="reviewBtn" onClick={() => setIsReviewModalOpen(true)}>
+          Review
         </button>
       </div>
       <AddQA_Screen
-        isModalOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
+        isModalOpen={isAddBtnModalOpen}
+        closeModal={() => setIsAddBtnModalOpen(false)}
+      />
+      <ReviewModal
+        isModalOpen={isReviewModalOpen}
+        closeModal={() => setIsReviewModalOpen(false)}
       />
     </>
   );
