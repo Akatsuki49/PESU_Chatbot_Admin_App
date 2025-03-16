@@ -1,14 +1,20 @@
 import React from 'react';
 import QA_ReviewCards from '../MockData/QA_ReviewCards.json';
-import ReviewQACard from './ReviewQACard';
+import Card from './Card';
+import './styles/QA_ReviewList.css';
 
-const QA_ReviewList = ({ wrapperRef }) => {
+const QA_ReviewList = ({ wrapperRef, closeModal }) => {
   return (
     <div className="QAList" ref={wrapperRef}>
-      <h2>QA List</h2>
+      <div className="header">
+        <div></div>
+        <h2>QA List</h2>
+        <button onClick={closeModal}>X</button>
+      </div>
       {QA_ReviewCards.data.map((card) => (
-        <ReviewQACard key={card.id} card={card} />
+        <Card key={card.id} card={card} isEditable={false} />
       ))}
+      <button className="addQA">Upload QAs</button>
     </div>
   );
 };

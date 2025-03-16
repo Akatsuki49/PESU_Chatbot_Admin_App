@@ -3,7 +3,7 @@ import './styles/Card.css';
 import ConfirmationModal from './ConfirmationModal';
 import { useForm } from 'react-hook-form';
 
-const Card = ({ card, deleteCard, updateCard }) => {
+const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
@@ -44,10 +44,14 @@ const Card = ({ card, deleteCard, updateCard }) => {
   return (
     <>
       <div className="card">
-        <div className="header">
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={toggleEdit}>{isEditing ? 'Cancel' : 'Edit'}</button>
-        </div>
+        {isEditable && (
+          <div className="header">
+            <button onClick={handleDelete}>Delete</button>
+            <button onClick={toggleEdit}>
+              {isEditing ? 'Cancel' : 'Edit'}
+            </button>
+          </div>
+        )}
 
         {!isEditing ? (
           <div className="content">
