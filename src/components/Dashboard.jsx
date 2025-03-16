@@ -1,5 +1,5 @@
-import React, { useEffect, useId, useState } from 'react';
-import mockData from '../MockData/QACards.json';
+import React, { useEffect, useState } from 'react';
+import mockData from '../MockData/QAFetchedCards.json';
 import Card from './Card';
 import AddQA_Screen from './AddQA_Screen';
 import './styles/Dashboard.css';

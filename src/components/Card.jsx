@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isSimilarQAModalOpen, setIsSimilarQAModalOpen] = useState(false);
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -76,6 +77,11 @@ const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
             />
             <button type="submit">Update Card</button>
           </form>
+        )}
+        {!isEditable && (
+          <button onClick={() => setIsSimilarQAModalOpen(true)}>
+            Similar Questions!
+          </button>
         )}
       </div>
 
