@@ -2,8 +2,15 @@ import React, { useRef, useState } from 'react';
 import './styles/Card.css';
 import ConfirmationModal from './ConfirmationModal';
 import { useForm } from 'react-hook-form';
+import SimilarQAModal from './SimilarQAModal';
 
-const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
+const Card = ({
+  card,
+  deleteCard,
+  updateCard,
+  isEditable = true,
+  similarBtnVisibility = true,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isSimilarQAModalOpen, setIsSimilarQAModalOpen] = useState(false);
@@ -79,7 +86,10 @@ const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
           </form>
         )}
         {!isEditable && (
-          <button onClick={() => setIsSimilarQAModalOpen(true)}>
+          <button
+            onClick={() => setIsSimilarQAModalOpen(true)}
+            hidden={!similarBtnVisibility}
+          >
             Similar Questions!
           </button>
         )}
@@ -93,6 +103,14 @@ const Card = ({ card, deleteCard, updateCard, isEditable = true }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
       />
+
+      {!isEditable && isSimilarQAModalOpen && (
+        <SimilarQAModal
+          isModalOpen={isSimilarQAModalOpen}
+          closeModal={() => setIsSimilarQAModalOpen(false)}
+          similarQA={card.similar}
+        />
+      )}
     </>
   );
 };

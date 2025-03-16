@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { QAContext } from '../context/QAContextProvider';
 
 export const useAddSingleQA = () => {
   const [QaForm, setQaForm] = useState({
     question: '',
     answer: '',
   });
+
+  const { addQA } = useContext(QAContext);
 
   const handleSingleQASubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +20,34 @@ export const useAddSingleQA = () => {
     }
 
     console.log('Submitting QA:', QaForm);
+    //can make api call here and fetch the similar questions
+    const dummySimilarQuestions = [
+      {
+        id: '1',
+        question: 'What is the capital of France?',
+        answer: 'Paris',
+      },
+      {
+        id: '2',
+        question: 'What is the largest planet in our solar system?',
+        answer: 'Jupiter',
+      },
+      {
+        id: '3',
+        question: 'What is the smallest planet in our solar system?',
+        answer: 'Mercury',
+      },
+    ];
+    const qa = {
+      ...QaForm,
+      similar: dummySimilarQuestions,
+    };
+    addQA(qa);
+
+    setQaForm({
+      question: '',
+      answer: '',
+    });
   };
 
   const handleChange = (e) => {

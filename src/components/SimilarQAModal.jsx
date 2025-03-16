@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import Card from './Card';
 
-const SimilarQAModal = ({ isModalOpen, closeModal }) => {
+const SimilarQAModal = ({ isModalOpen, closeModal, similarQA }) => {
   const dialogRef = useRef(null);
 
   useEffect(() => {
@@ -35,7 +36,25 @@ const SimilarQAModal = ({ isModalOpen, closeModal }) => {
         scrollbarWidth: 'none',
         overflow: 'auto',
       }}
-    ></dialog>
+    >
+      <div className="header">
+        <div></div>
+        <h2>Similar Q&A</h2>
+        <button onClick={closeModal}>X</button>
+      </div>
+      {similarQA.map((qa) => (
+        <Card
+          key={qa.id}
+          card={qa}
+          isEditable={false}
+          similarBtnVisibility={false}
+        />
+      ))}
+      <div className="footerBtns">
+        <button className="Approve">&#x2705;</button>
+        <button className="Reject">&#x274c;</button>
+      </div>
+    </dialog>
   );
 };
 
