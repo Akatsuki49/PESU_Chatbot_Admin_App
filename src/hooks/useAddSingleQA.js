@@ -20,29 +20,7 @@ export const useAddSingleQA = () => {
     }
 
     console.log('Submitting QA:', QaForm);
-    //can make api call here and fetch the similar questions
-    const dummySimilarQuestions = [
-      {
-        id: '1',
-        question: 'What is the capital of France?',
-        answer: 'Paris',
-      },
-      {
-        id: '2',
-        question: 'What is the largest planet in our solar system?',
-        answer: 'Jupiter',
-      },
-      {
-        id: '3',
-        question: 'What is the smallest planet in our solar system?',
-        answer: 'Mercury',
-      },
-    ];
-    const qa = {
-      ...QaForm,
-      similar: dummySimilarQuestions,
-    };
-    addQA(qa);
+    addQA(QaForm);
 
     setQaForm({
       question: '',

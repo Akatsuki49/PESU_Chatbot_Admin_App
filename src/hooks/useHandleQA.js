@@ -7,7 +7,35 @@ export const useHandleQA = () => {
 
   const addQA = (newQA) => {
     newQA.status = 0;
-    setQaList((prevQaList) => [...prevQaList, newQA]);
+    //can make api call here and fetch the similar questions
+    const dummySimilarQuestions = [
+      {
+        id: '1',
+        question: 'What is the capital of France?',
+        answer: 'Paris',
+      },
+      {
+        id: '2',
+        question: 'What is the largest planet in our solar system?',
+        answer: 'Jupiter',
+      },
+      {
+        id: '3',
+        question: 'What is the smallest planet in our solar system?',
+        answer: 'Mercury',
+      },
+    ];
+    const toAddQA = {
+      ...newQA,
+      similar: dummySimilarQuestions,
+    };
+    setQaList((prevQaList) => [...prevQaList, toAddQA]);
+  };
+
+  const updateQA = (id, updatedQA) => {
+    setQaList((prevQaList) =>
+      prevQaList.map((qa) => (qa.id === id ? updatedQA : qa))
+    );
   };
 
   const approveQA = (id) => {
@@ -26,5 +54,5 @@ export const useHandleQA = () => {
     setQaList((prevQaList) => prevQaList.filter((qa) => qa.id !== id));
   };
 
-  return { qaList, addQA, approveQA, rejectQA, removeQA };
+  return { qaList, addQA, updateQA, approveQA, rejectQA, removeQA };
 };

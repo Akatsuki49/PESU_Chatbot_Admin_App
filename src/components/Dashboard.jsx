@@ -1,31 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import mockData from '../MockData/QAFetchedCards.json';
 import Card from './Card';
 import AddQA_Screen from './AddQA_Screen';
 import './styles/Dashboard.css';
 import ReviewModal from './ReviewModal';
+import { QAContext } from '../context/QAContextProvider';
 
 const Dashboard = () => {
   // update, delete operations for each card retured from BE
-  const [Cards, setCards] = useState([]);
+  // const [Cards, setCards] = useState([]);
+  const { qaList, addQA, updateQA, approveQA, rejectQA, removeQA } =
+    useContext(QAContext);
   const [isAddBtnModalOpen, setIsAddBtnModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
-  const deleteCard = (id) => {
-    setCards((prevCards) => prevCards.filter((card) => card.id !== id));
-  };
-
-  const updateCard = (id, updatedCard) => {
-    setCards((prevCards) =>
-      prevCards.map((card) => (card.id === id ? updatedCard : card))
-    );
-  };
 
   useEffect(() => {
     (async () => {
       const { output, status, error } = await getData();
       if (status === 200) {
-        setCards(output.data);
+        for (let i = 0; i < output.data.length; i++) {
+          addQA(output.data[i]);
+        }
       } else {
         console.log(error);
       }
@@ -46,13 +41,13 @@ const Dashboard = () => {
     <>
       <div className="Dashboard">
         <h1>Dashboard</h1>
-        {Cards.map((card) => {
+        {qaList.map((card) => {
           return (
             <Card
               key={card.id}
               card={card}
-              deleteCard={deleteCard}
-              updateCard={updateCard}
+              deleteCard={removeQA}
+              updateCard={updateQA}
             />
           );
         })}

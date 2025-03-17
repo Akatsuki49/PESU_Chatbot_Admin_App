@@ -3,6 +3,7 @@ import Card from './Card';
 
 const SimilarQAModal = ({ isModalOpen, closeModal, similarQA }) => {
   const dialogRef = useRef(null);
+  console.log('similarQA', similarQA);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
