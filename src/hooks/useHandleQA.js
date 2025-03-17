@@ -6,7 +6,9 @@ export const useHandleQA = () => {
   const [qaList, setQaList] = useState([]);
 
   const addQA = (newQA) => {
-    newQA.status = 0;
+    if (newQA.status === undefined) newQA.status = 0;
+
+    if (newQA.id === undefined) newQA.id = crypto.randomUUID();
     //can make api call here and fetch the similar questions
     const dummySimilarQuestions = [
       {
@@ -39,6 +41,8 @@ export const useHandleQA = () => {
   };
 
   const approveQA = (id) => {
+    console.log(id);
+    console.log(qaList);
     setQaList((prevQaList) =>
       prevQaList.map((qa) => (qa.id === id ? { ...qa, status: 1 } : qa))
     );

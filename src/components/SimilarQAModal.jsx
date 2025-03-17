@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import Card from './Card';
+import { QAContext } from '../context/QAContextProvider';
 
-const SimilarQAModal = ({ isModalOpen, closeModal, similarQA }) => {
+const SimilarQAModal = ({ isModalOpen, closeModal, similarQA, parentID }) => {
   const dialogRef = useRef(null);
-  console.log('similarQA', similarQA);
+
+  const { approveQA, rejectQA } = useContext(QAContext);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,9 +53,13 @@ const SimilarQAModal = ({ isModalOpen, closeModal, similarQA }) => {
           similarBtnVisibility={false}
         />
       ))}
-      <div className="footerBtns">
-        <button className="Approve">&#x2705;</button>
-        <button className="Reject">&#x274c;</button>
+      <div className="footerBtns" onClick={closeModal}>
+        <button className="Approve" onClick={() => approveQA(parentID)}>
+          &#x2705;
+        </button>
+        <button className="Reject" onClick={() => rejectQA(parentID)}>
+          &#x274c;
+        </button>
       </div>
     </dialog>
   );

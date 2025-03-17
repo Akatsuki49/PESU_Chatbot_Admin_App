@@ -7,6 +7,10 @@ import { QAContext } from '../context/QAContextProvider';
 
 const QA_ReviewList = ({ wrapperRef, closeModal }) => {
   const { qaList } = useContext(QAContext);
+
+  const finalqaList = qaList.filter((qa) => qa.status === 0);
+  console.log(finalqaList);
+
   return (
     <div className="QAList" ref={wrapperRef}>
       <div className="header">
@@ -14,7 +18,7 @@ const QA_ReviewList = ({ wrapperRef, closeModal }) => {
         <h2>QA List</h2>
         <button onClick={closeModal}>X</button>
       </div>
-      {Array.from(qaList).map((card) => {
+      {Array.from(finalqaList).map((card) => {
         return <Card key={card.id} card={card} isEditable={false} />;
       })}
       <button className="addQA">Upload QAs</button>

@@ -108,6 +108,7 @@ const Card = ({
         <SimilarQAModal
           isModalOpen={isSimilarQAModalOpen}
           closeModal={() => setIsSimilarQAModalOpen(false)}
+          parentID={card.id}
           similarQA={card.similar}
         />
       )}

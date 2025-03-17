@@ -37,11 +37,13 @@ const Dashboard = () => {
       return { output: {}, status: 500, error: error };
     }
   };
+
+  const renderQAList = qaList.filter((qa) => qa.status === 1);
   return (
     <>
       <div className="Dashboard">
         <h1>Dashboard</h1>
-        {qaList.map((card) => {
+        {renderQAList.map((card) => {
           return (
             <Card
               key={card.id}

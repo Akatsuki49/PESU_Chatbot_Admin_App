@@ -3,22 +3,26 @@
     {
       "id": "1",
       "question": "What is the capital of France?",
-      "answer": "Paris"
+      "answer": "Paris",
+      "status": 1
     },
     {
       "id": "2",
       "question": "What is the largest planet in our solar system?",
-      "answer": "Jupiter"
+      "answer": "Jupiter",
+      "status": 1
     },
     {
       "id": "3",
       "question": "What is the smallest planet in our solar system?",
-      "answer": "Mercury"
+      "answer": "Mercury",
+      "status": 1
     },
     {
       "id": "4",
       "question": "What is the largest mammal in the world?",
-      "answer": "Blue Whale"
+      "answer": "Blue Whale",
+      "status": 1
     }
   ]
 }
