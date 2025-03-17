@@ -5,7 +5,7 @@ import { useAddFile } from '../hooks/useAddFile';
 
 const AddQA_Screen = ({ isModalOpen, closeModal }) => {
   const { QaForm, handleSingleQASubmit, handleChange } = useAddSingleQA();
-  const { file, handleFileChange, handleFileSubmit } = useAddFile();
+  const { handleFileChange, handleFileSubmit } = useAddFile();
   const [isSingleQA, setIsSingleQA] = useState(true);
 
   const dialogRef = useRef(null);
