@@ -1,3 +1,10 @@
+# Start locally:
+
+1. git clone https://github.com/Akatsuki49/PESU_Chatbot_Admin_App.git / git fetch; git pull
+2. cd PESU_Chatbot_Admin_App
+3. npm install
+4. npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
