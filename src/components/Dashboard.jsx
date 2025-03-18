@@ -9,8 +9,7 @@ import { QAContext } from '../context/QAContextProvider';
 const Dashboard = () => {
   // update, delete operations for each card retured from BE
   // const [Cards, setCards] = useState([]);
-  const { qaList, addQA, updateQA, approveQA, rejectQA, removeQA } =
-    useContext(QAContext);
+  const { qaList, addQA, updateQA, removeQA } = useContext(QAContext);
   const [isAddBtnModalOpen, setIsAddBtnModalOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
@@ -39,6 +38,8 @@ const Dashboard = () => {
   };
 
   const renderQAList = qaList.filter((qa) => qa.status === 1);
+  const pendingQAList = qaList.filter((qa) => qa.status === 0);
+
   return (
     <>
       <div className="Dashboard">
@@ -56,18 +57,22 @@ const Dashboard = () => {
         <button onClick={() => setIsAddBtnModalOpen(true)} id="addBtn">
           +
         </button>
-        <button id="reviewBtn" onClick={() => setIsReviewModalOpen(true)}>
-          Review
-        </button>
+        {pendingQAList.length > 0 && (
+          <button id="reviewBtn" onClick={() => setIsReviewModalOpen(true)}>
+            Review
+          </button>
+        )}
       </div>
       <AddQA_Screen
         isModalOpen={isAddBtnModalOpen}
         closeModal={() => setIsAddBtnModalOpen(false)}
       />
-      <ReviewModal
-        isModalOpen={isReviewModalOpen}
-        closeModal={() => setIsReviewModalOpen(false)}
-      />
+      {isReviewModalOpen && pendingQAList.length > 0 && (
+        <ReviewModal
+          isModalOpen={isReviewModalOpen}
+          closeModal={() => setIsReviewModalOpen(false)}
+        />
+      )}
     </>
   );
 };
