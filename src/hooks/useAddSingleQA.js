@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { QAContext } from '../context/QAContextProvider';
 
 export const useAddSingleQA = () => {
   const [QaForm, setQaForm] = useState({
     question: '',
     answer: '',
   });
+
+  const { addQA } = useContext(QAContext);
 
   const handleSingleQASubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +20,12 @@ export const useAddSingleQA = () => {
     }
 
     console.log('Submitting QA:', QaForm);
+    addQA(QaForm);
+
+    setQaForm({
+      question: '',
+      answer: '',
+    });
   };
 
   const handleChange = (e) => {

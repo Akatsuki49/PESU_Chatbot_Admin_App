@@ -2,10 +2,18 @@ import React, { useRef, useState } from 'react';
 import './styles/Card.css';
 import ConfirmationModal from './ConfirmationModal';
 import { useForm } from 'react-hook-form';
+import SimilarQAModal from './SimilarQAModal';
 
-const Card = ({ card, deleteCard, updateCard }) => {
+const Card = ({
+  card,
+  deleteCard,
+  updateCard,
+  isEditable = true,
+  similarBtnVisibility = true,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isSimilarQAModalOpen, setIsSimilarQAModalOpen] = useState(false);
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -44,10 +52,14 @@ const Card = ({ card, deleteCard, updateCard }) => {
   return (
     <>
       <div className="card">
-        <div className="header">
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={toggleEdit}>{isEditing ? 'Cancel' : 'Edit'}</button>
-        </div>
+        {isEditable && (
+          <div className="header">
+            <button onClick={handleDelete}>Delete</button>
+            <button onClick={toggleEdit}>
+              {isEditing ? 'Cancel' : 'Edit'}
+            </button>
+          </div>
+        )}
 
         {!isEditing ? (
           <div className="content">
@@ -73,6 +85,14 @@ const Card = ({ card, deleteCard, updateCard }) => {
             <button type="submit">Update Card</button>
           </form>
         )}
+        {!isEditable && (
+          <button
+            onClick={() => setIsSimilarQAModalOpen(true)}
+            hidden={!similarBtnVisibility}
+          >
+            Similar Questions!
+          </button>
+        )}
       </div>
 
       <ConfirmationModal
@@ -83,6 +103,15 @@ const Card = ({ card, deleteCard, updateCard }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
       />
+
+      {!isEditable && isSimilarQAModalOpen && (
+        <SimilarQAModal
+          isModalOpen={isSimilarQAModalOpen}
+          closeModal={() => setIsSimilarQAModalOpen(false)}
+          parentID={card.id}
+          similarQA={card.similar}
+        />
+      )}
     </>
   );
 };
