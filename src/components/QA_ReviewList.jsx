@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-// import QA_ReviewCards from '../MockData/QA_ReviewCards.json';
-import Card from './Card';
 import './styles/QA_ReviewList.css';
 import { useContext } from 'react';
 import { QAContext } from '../context/QAContextProvider';
 import QA_ReviewCardTile from './QA_ReviewCardTile';
-import { set } from 'react-hook-form';
 
 const QA_ReviewList = ({ wrapperRef, closeModal }) => {
   const { qaList, approveQA } = useContext(QAContext);
@@ -16,6 +13,7 @@ const QA_ReviewList = ({ wrapperRef, closeModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     qasToUpload.forEach((qa) => approveQA(qa.id));
+    closeModal();
   };
 
   const finalqaList = qaList.filter((qa) => qa.status === 0);

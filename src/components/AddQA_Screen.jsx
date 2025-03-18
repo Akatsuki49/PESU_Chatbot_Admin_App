@@ -27,7 +27,13 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
 
   const singleQA_Form = () => {
     return (
-      <form onSubmit={handleSingleQASubmit} className="form singleQA">
+      <form
+        onSubmit={(e) => {
+          handleSingleQASubmit(e);
+          closeModal();
+        }}
+        className="form singleQA"
+      >
         <label htmlFor="question">Question:</label>
         <textarea
           type="text"
@@ -53,7 +59,13 @@ const AddQA_Screen = ({ isModalOpen, closeModal }) => {
 
   const fileQA_Form = () => {
     return (
-      <form onSubmit={handleFileSubmit} className="form fileQA">
+      <form
+        onSubmit={(e) => {
+          handleFileSubmit(e);
+          closeModal();
+        }}
+        className="form fileQA"
+      >
         <label htmlFor="file">Upload File:</label>
         <input type="file" id="file" name="file" onChange={handleFileChange} />
         <button type="submit">Submit File QA</button>
